@@ -8,10 +8,11 @@ A comprehensive, modern system for automatically classifying and prioritizing us
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## 🌟 Live Demo
-- **Frontend**: [https://ai-feedback-triage.vercel.app](https://ai-feedback-triage.vercel.app)
-- **Dashboard**: [https://ai-feedback-triage.vercel.app/dashboard](https://ai-feedback-triage.vercel.app/dashboard)
-- **API Docs**: [https://your-backend.railway.app/docs](https://your-backend.railway.app/docs)
+## 🌟 Live Demo (FREE Hosting!)
+- **🌐 Frontend**: [https://ai-feedback-triage.vercel.app](https://ai-feedback-triage.vercel.app)
+- **📊 Dashboard**: [https://ai-feedback-triage.vercel.app/dashboard](https://ai-feedback-triage.vercel.app/dashboard)
+- **⚡ Backend API**: [https://ai-feedback-triage-backend.onrender.com](https://ai-feedback-triage-backend.onrender.com)
+- **📚 API Docs**: [https://ai-feedback-triage-backend.onrender.com/docs](https://ai-feedback-triage-backend.onrender.com/docs)
 
 ## ✨ Features
 
@@ -91,6 +92,33 @@ The system classifies feedback into these categories:
    - 📊 **Dashboard**: http://localhost:3000/dashboard
    - 🔧 **Backend API**: http://localhost:8000
    - 📚 **API Documentation**: http://localhost:8000/docs
+
+## 🆓 Free Deployment (Recommended)
+
+Deploy your application **completely FREE** using Render + Vercel:
+
+### 🚀 Quick Deploy (5 minutes)
+
+1. **Backend on Render (Free Tier)**:
+   - Visit [render.com](https://render.com) → New Web Service
+   - Connect your GitHub repo: `ai-feedback-triage`
+   - Root Directory: `backend`
+   - Build: `pip install -r requirements-prod.txt`
+   - Start: `python -m uvicorn src.main:app --host 0.0.0.0 --port $PORT`
+   - Environment: `OPENAI_API_KEY=your_key`
+
+2. **Frontend on Vercel (Free Tier)**:
+   - Visit [vercel.com](https://vercel.com) → New Project
+   - Import your GitHub repo: `ai-feedback-triage`
+   - Root Directory: `frontend`
+   - Environment: `NEXT_PUBLIC_API_URL=https://your-backend.onrender.com`
+
+### 💰 Cost: $0.00/month
+- **Render Free**: 512MB RAM, sleeps after 15min (perfect for demos)
+- **Vercel Free**: 100GB bandwidth, unlimited deployments
+- **Database**: SQLite included, no additional cost
+
+📋 **Detailed Guide**: See [FREE_DEPLOYMENT_GUIDE.md](./FREE_DEPLOYMENT_GUIDE.md)
 
 ## 📊 Dashboard Features
 
@@ -312,7 +340,8 @@ Returns daily feedback trends and category distribution.
 - **Docker**: Containerization with multi-stage builds
 - **Docker Compose**: Multi-service orchestration
 - **Nginx**: Reverse proxy with rate limiting and security headers
-- **Cloud platforms**: Railway, Vercel, AWS, Google Cloud support
+- **Free hosting**: Render (backend) + Vercel (frontend) = $0/month
+- **Cloud platforms**: Render, Vercel, AWS, Google Cloud support
 
 ## Design Choices
 
