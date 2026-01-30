@@ -165,23 +165,23 @@ jobs:
         echo "LLM_MODEL=o4-mini-2025-04-16" >> .env
         echo "API_URL=http://localhost:8000" >> .env
         
-        # Test docker-compose build
-        docker-compose build
+        # Test docker compose build
+        docker compose build
         
         # Start services in background
-        docker-compose up -d
+        docker compose up -d
         
         # Wait for services to start
         sleep 30
         
         # Check if services are running
-        docker-compose ps
+        docker compose ps
         
         # Test backend health endpoint
         curl --fail --retry 5 --retry-delay 5 http://localhost:8000/health || true
         
         # Cleanup
-        docker-compose down
+        docker compose down
 
   security-scan:
     name: Security Scan
