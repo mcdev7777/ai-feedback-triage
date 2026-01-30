@@ -1,75 +1,34 @@
-# 🤖 AI-Powered Feedback Triage System
+# AI-Powered Feedback Triage System
 
-A comprehensive, modern system for automatically classifying and prioritizing user feedback using AI. Built with cutting-edge technologies and featuring a stunning, responsive interface with glass morphism effects and advanced analytics.
+A comprehensive web application that automatically classifies and prioritizes user feedback using AI. Built with FastAPI backend, Next.js frontend, and Docker for streamlined deployment.
 
+![CI](https://github.com/walidBc-blip/ai-feedback-triage/workflows/Continuous%20Integration/badge.svg)
 ![AI Feedback Triage](https://img.shields.io/badge/AI-Powered-blue?style=for-the-badge&logo=openai)
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-## 🌟 Live Demo (FREE Hosting!)
-- **🌐 Frontend**: [https://ai-feedback-triage.vercel.app](https://ai-feedback-triage.vercel.app)
-- **📊 Dashboard**: [https://ai-feedback-triage.vercel.app/dashboard](https://ai-feedback-triage.vercel.app/dashboard)
-- **⚡ Backend API**: [https://ai-feedback-triage-backend.onrender.com](https://ai-feedback-triage-backend.onrender.com)
-- **📚 API Docs**: [https://ai-feedback-triage-backend.onrender.com/docs](https://ai-feedback-triage-backend.onrender.com/docs)
-
-## ✨ Features
-
-### Core Functionality
-- 🤖 **AI-powered feedback classification** into 4 categories with improved accuracy
-- ⚡ **Real-time urgency scoring** (1-5 scale) with few-shot learning
-- 🔄 **Clean, responsive web interface** with modern design
-- 🐳 **Fully containerized** with Docker for easy deployment
-
-### 📊 Analytics Dashboard
-- **Beautiful data visualizations** with charts and graphs
-- **Real-time statistics** and performance metrics
-- **Feedback history** with search and filtering
-- **Category and urgency distribution** analysis
-- **Daily trends** and processing time analytics
-- **Responsive design** that works on all devices
-
-### 🛡️ Production Features
-- ✅ **Comprehensive error handling** and validation
-- 🔒 **Rate limiting** and security features  
-- 🗄️ **Database integration** (SQLite/PostgreSQL) for persistent storage
-- 🧪 **Extensive unit tests** with 30+ test cases
-- 📈 **Performance monitoring** and logging
-- 🌐 **Cloud deployment ready** with multiple platform configurations
-
-## Categories
-
-The system classifies feedback into these categories:
-- **Bug Report**: Technical issues or broken functionality
-- **Feature Request**: Suggestions for new features or enhancements
-- **Praise/Positive Feedback**: Satisfaction or appreciation
-- **General Inquiry**: Questions or comments
-
-## Urgency Scale
-
-- **1**: Not Urgent
-- **2**: Low
-- **3**: Medium
-- **4**: High
-- **5**: Critical
+## 🌟 Live Demo
+- **Frontend**: [https://ai-feedback-triage.vercel.app](https://ai-feedback-triage.vercel.app)
+- **API Documentation**: [https://ai-feedback-triage-backend.onrender.com/docs](https://ai-feedback-triage-backend.onrender.com/docs)
+- **Dashboard**: [https://ai-feedback-triage.vercel.app/dashboard](https://ai-feedback-triage.vercel.app/dashboard)
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-
 - Docker and Docker Compose
-- OpenAI API key (or other LLM provider API key)
+- OpenAI API key
 
-### Setup
+### Setup & Run
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/walidBc-blip/ai-feedback-triage.git
    cd ai-feedback-triage
    ```
 
-2. **Set up environment variables**
+2. **Configure environment variables**
    ```bash
    cp .env.example .env
    ```
@@ -78,8 +37,7 @@ The system classifies feedback into these categories:
    ```env
    LLM_API_KEY=your_openai_api_key_here
    LLM_MODEL=o4-mini-2025-04-16
-   # LLM_BASE_URL=  # Optional: for custom API endpoints
-   # DATABASE_URL=  # Optional: PostgreSQL connection string
+   API_URL=http://localhost:8000
    ```
 
 3. **Run the application**
@@ -88,69 +46,40 @@ The system classifies feedback into these categories:
    ```
 
 4. **Access the application**
-   - 🏠 **Frontend**: http://localhost:3000
-   - 📊 **Dashboard**: http://localhost:3000/dashboard
-   - 🔧 **Backend API**: http://localhost:8000
-   - 📚 **API Documentation**: http://localhost:8000/docs
+   - **Frontend**: http://localhost:3000
+   - **Backend API**: http://localhost:8000
+   - **API Documentation**: http://localhost:8000/docs
+   - **Dashboard**: http://localhost:3000/dashboard
 
-## 🆓 Free Deployment (Recommended)
+## 📊 Core Features
 
-Deploy your application **completely FREE** using Render + Vercel:
+### Feedback Classification
+The system classifies feedback into four categories:
+- **Bug Report**: Technical issues or broken functionality
+- **Feature Request**: Suggestions for new features or enhancements  
+- **Praise/Positive Feedback**: Satisfaction or appreciation
+- **General Inquiry**: Questions or comments
 
-### 🚀 Quick Deploy (5 minutes)
+### Urgency Scoring
+AI assigns urgency scores on a 1-5 scale:
+- **1**: Not Urgent
+- **2**: Low
+- **3**: Medium
+- **4**: High
+- **5**: Critical
 
-1. **Backend on Render (Free Tier)**:
-   - Visit [render.com](https://render.com) → New Web Service
-   - Connect your GitHub repo: `ai-feedback-triage`
-   - Root Directory: `backend`
-   - Build: `pip install -r requirements-prod.txt`
-   - Start: `python -m uvicorn src.main:app --host 0.0.0.0 --port $PORT`
-   - Environment: `OPENAI_API_KEY=your_key`
+### Analytics Dashboard
+- Real-time statistics and performance metrics
+- Interactive data visualizations with charts
+- Feedback history with search and filtering capabilities
+- Category and urgency distribution analysis
+- Daily trends and processing time analytics
 
-2. **Frontend on Vercel (Free Tier)**:
-   - Visit [vercel.com](https://vercel.com) → New Project
-   - Import your GitHub repo: `ai-feedback-triage`
-   - Root Directory: `frontend`
-   - Environment: `NEXT_PUBLIC_API_URL=https://your-backend.onrender.com`
+## 🔧 API Documentation
 
-### 💰 Cost: $0.00/month
-- **Render Free**: 512MB RAM, sleeps after 15min (perfect for demos)
-- **Vercel Free**: 100GB bandwidth, unlimited deployments
-- **Database**: SQLite included, no additional cost
+### Core Endpoint
 
-📋 **Detailed Guide**: See [FREE_DEPLOYMENT_GUIDE.md](./FREE_DEPLOYMENT_GUIDE.md)
-
-## 📊 Dashboard Features
-
-The analytics dashboard provides comprehensive insights into your feedback data:
-
-### Real-time Statistics
-- **Total feedback count** over customizable time periods
-- **Urgent items tracking** (High & Critical priority)
-- **Average processing time** for performance monitoring
-- **Daily submission rates** and trends
-
-### Data Visualizations
-- **Pie charts** for category distribution
-- **Bar charts** for urgency level analysis
-- **Line graphs** for daily feedback trends
-- **Interactive filtering** by category, urgency, and date range
-
-### Feedback Management
-- **Search functionality** to find specific feedback
-- **Advanced filtering** by category, urgency level, and timeframe
-- **Detailed history view** with metadata (processing time, IP, timestamps)
-- **Export capabilities** for further analysis
-
-### Performance Analytics
-- **Processing time metrics** to monitor API performance
-- **Database query optimization** with indexed searches
-- **Real-time updates** without page refresh
-
-## API Documentation
-
-### POST /triage
-
+#### POST /triage
 Analyzes feedback text and returns classification and urgency score.
 
 **Request:**
@@ -164,7 +93,7 @@ Analyzes feedback text and returns classification and urgency score.
 ```json
 {
   "feedback_text": "I can't log in to my account, the password reset link is broken!",
-  "category": "Bug Report",
+  "category": "Bug Report", 
   "urgency_score": 4
 }
 ```
@@ -178,300 +107,184 @@ Analyzes feedback text and returns classification and urgency score.
 }
 ```
 
-### GET /health
+### Additional Endpoints
 
-Returns application health status.
+- **GET /health** - Application health check
+- **GET /docs** - Interactive API documentation
+- **GET /api/dashboard/stats** - Dashboard statistics
+- **GET /api/dashboard/feedback** - Feedback history with pagination
 
-### Dashboard API Endpoints
-
-#### GET /dashboard/stats
-
-Returns dashboard statistics and analytics.
-
-**Query Parameters:**
-- `days_back` (integer, optional): Number of days to look back (default: 30, max: 365)
-
-**Response (200 OK):**
-```json
-{
-  "total_feedback": 150,
-  "urgent_items": 12,
-  "avg_processing_time": 2.3,
-  "daily_average": 5.0
-}
-```
-
-#### GET /dashboard/history
-
-Returns paginated feedback history with filtering capabilities.
-
-**Query Parameters:**
-- `page` (integer, optional): Page number (default: 1)
-- `limit` (integer, optional): Items per page (default: 50, max: 100)
-- `category` (string, optional): Filter by category
-- `urgency` (integer, optional): Filter by urgency level
-- `search` (string, optional): Search in feedback text
-- `start_date` (string, optional): Start date filter (ISO format)
-- `end_date` (string, optional): End date filter (ISO format)
-
-**Response (200 OK):**
-```json
-{
-  "items": [
-    {
-      "id": 1,
-      "feedback_text": "Login issue with password reset",
-      "category": "Bug Report",
-      "urgency_score": 4,
-      "processing_time": 2.1,
-      "created_at": "2024-01-15T10:30:00Z"
-    }
-  ],
-  "total": 150,
-  "page": 1,
-  "limit": 50,
-  "total_pages": 3
-}
-```
-
-#### GET /dashboard/trends
-
-Returns daily feedback trends and category distribution.
-
-**Query Parameters:**
-- `days` (integer, optional): Number of days to analyze (default: 30)
-
-**Response (200 OK):**
-```json
-{
-  "daily_trends": [
-    {"date": "2024-01-15", "count": 8},
-    {"date": "2024-01-16", "count": 12}
-  ],
-  "category_distribution": [
-    {"category": "Bug Report", "count": 45},
-    {"category": "Feature Request", "count": 30}
-  ],
-  "urgency_distribution": [
-    {"urgency": 1, "count": 20},
-    {"urgency": 2, "count": 35}
-  ]
-}
-
-## Development
-
-### Backend Development
-
-1. **Navigate to backend directory**
-   ```bash
-   cd backend
-   ```
-
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Set environment variables**
-   ```bash
-   export LLM_API_KEY=your_api_key
-   export LLM_MODEL=o4-mini-2025-04-16
-   ```
-
-4. **Run the backend**
-   ```bash
-   python -m uvicorn src.main:app --reload
-   ```
-
-5. **Run tests**
-   ```bash
-   pytest
-   ```
-
-### Frontend Development
-
-1. **Navigate to frontend directory**
-   ```bash
-   cd frontend
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set environment variables**
-   ```bash
-   echo "API_URL=http://localhost:8000" > .env.local
-   ```
-
-4. **Run the frontend**
-   ```bash
-   npm run dev
-   ```
-
-## Architecture
+## 🏗️ Architecture
 
 ### Backend (FastAPI)
 - **FastAPI**: Modern Python web framework with async support
 - **SQLAlchemy**: Async ORM for database operations
-- **Alembic**: Database migration management
-- **Pydantic**: Data validation and serialization
-- **OpenAI Client**: LLM integration with few-shot learning
-- **aioSQLite**: Async SQLite driver
-- **Pytest**: Comprehensive testing framework
+- **OpenAI Integration**: AI-powered feedback classification using o4-mini model
+- **SQLite**: Lightweight database for development and testing
+- **Comprehensive Testing**: Unit tests with pytest and async support
 
-### Frontend (Next.js/React)
-- **Next.js**: React framework with SSR capabilities
-- **TypeScript**: Type-safe JavaScript development
-- **Recharts**: Beautiful data visualization library
-- **Lucide React**: Modern icon components
-- **date-fns**: Date manipulation utilities
-- **Axios**: HTTP client for API calls
-- **CSS Modules**: Scoped styling with responsive design
+### Frontend (Next.js)
+- **Next.js 14**: React framework with server-side rendering
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Modern styling with responsive design
+- **Recharts**: Interactive data visualization
+- **Real-time Updates**: Dynamic dashboard with live data
 
-### Database
-- **SQLite**: Default file-based database for development
-- **PostgreSQL**: Production-ready database option
-- **Indexed queries**: Optimized search and filtering
-- **Migration system**: Version-controlled schema changes
+### Deployment
+- **Docker**: Containerized application with multi-stage builds
+- **Docker Compose**: Single-command deployment
+- **Cloud Ready**: Deployed on Vercel (frontend) and Render (backend)
 
-### Deployment & Infrastructure
-- **Docker**: Containerization with multi-stage builds
-- **Docker Compose**: Multi-service orchestration
-- **Nginx**: Reverse proxy with rate limiting and security headers
-- **Free hosting**: Render (backend) + Vercel (frontend) = $0/month
-- **Cloud platforms**: Render, Vercel, AWS, Google Cloud support
+## 🧪 Testing
 
-## Design Choices
+Run the test suite:
 
-### Technology Stack
-- **FastAPI** was chosen for its excellent async support, automatic API documentation, and built-in data validation
-- **Next.js** provides excellent developer experience with React and built-in optimization features
-- **Docker** ensures consistent deployment across environments
-
-### AI Integration
-- **OpenAI GPT-4** provides reliable classification with few-shot learning
-- **Enhanced prompting** with real examples improves accuracy and consistency
-- **Structured prompting** ensures consistent JSON responses
-- **Response validation** prevents malformed data from reaching users
-- **Timeout handling** and retry logic for robust LLM integration
-
-### Database Design
-- **SQLite default** for simplicity and zero-configuration setup
-- **PostgreSQL support** for production scalability and performance
-- **Async operations** throughout the stack for better concurrency
-- **Indexed columns** on frequently queried fields (category, urgency, timestamps)
-- **Migration system** ensures reliable schema evolution
-
-### Analytics & Visualization
-- **Recharts library** chosen for responsive, interactive charts
-- **Real-time updates** without page refresh for better UX
-- **Flexible filtering** enables detailed analysis and insights
-- **Performance optimization** with pagination and efficient queries
-
-### Error Handling
-- **Comprehensive validation** at API and database layers
-- **Graceful degradation** with meaningful error messages
-- **Rate limiting** prevents abuse and manages costs
-- **Database connection pooling** for reliability under load
-
-## Environment Variables
-
-| Variable | Description | Default | Required |
-|----------|-------------|---------|----------|
-| LLM_API_KEY | API key for LLM provider | - | Yes |
-| LLM_MODEL | Model name (e.g., o4-mini-2025-04-16, gpt-4) | o4-mini-2025-04-16 | No |
-| LLM_BASE_URL | Custom API endpoint URL | - | No |
-| DATABASE_URL | Database connection string | sqlite+aiosqlite:///./feedback_triage.db | No |
-| SQL_DEBUG | Enable SQL query logging | false | No |
-| API_URL | Backend URL for frontend | http://localhost:8000 | No |
-
-## Testing
-
-### Backend Tests
 ```bash
+# Backend tests
 cd backend
-pytest
-```
+python -m pytest
 
-Tests cover:
-- API endpoint functionality
-- LLM service integration
-- Error handling scenarios
-- Input validation
-
-### Frontend Tests
-```bash
+# Frontend tests (if available)
 cd frontend
 npm test
 ```
 
-## Troubleshooting
+Test coverage includes:
+- API endpoint functionality
+- LLM service integration
+- Error handling scenarios
+- Input validation
+- Edge cases and rate limiting
+
+## 🔒 Security & Performance
+
+### Security Features
+- Input validation and sanitization
+- API key management through environment variables
+- CORS configuration for cross-origin requests
+- Rate limiting for API endpoints
+
+### Performance Considerations
+- 30-second timeout for LLM API calls
+- Input length validation (max 1000 characters)
+- Async/await throughout the stack
+- Efficient database queries with SQLAlchemy
+
+## 🛠️ Development
+
+### Backend Development
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python -m uvicorn src.main:app --reload
+```
+
+### Frontend Development
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+## 📋 Environment Variables
+
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| LLM_API_KEY | OpenAI API key | - | Yes |
+| LLM_MODEL | Model name | o4-mini-2025-04-16 | No |
+| LLM_BASE_URL | Custom API endpoint | - | No |
+| API_URL | Backend URL for frontend | http://localhost:8000 | No |
+
+## 🎯 Design Choices
+
+### Technology Stack
+- **FastAPI** chosen for excellent async support, automatic API documentation, and built-in data validation
+- **Next.js** provides superior developer experience with React and built-in optimization features
+- **Docker** ensures consistent deployment across different environments
+- **SQLite** offers simplicity and zero-configuration setup for development
+
+### AI Integration
+- **OpenAI o4-mini** model provides reliable classification with cost efficiency
+- **Few-shot learning** with examples in prompts improves accuracy and consistency
+- **Structured prompting** ensures consistent JSON responses
+- **Robust error handling** with timeout management and retry logic
+
+## 🐛 Troubleshooting
 
 ### Common Issues
 
-**1. "LLM_API_KEY environment variable is required"**
-- Solution: Ensure you've set the LLM_API_KEY in your .env file
+**"LLM_API_KEY environment variable is required"**
+- Ensure you've set the LLM_API_KEY in your .env file
 
-**2. "Network error occurred"**
-- Solution: Check that the backend is running and accessible
+**"Network error occurred"**
+- Check that the backend is running and accessible
 - Verify API_URL environment variable is correct
 
-**3. "LLM API request timed out"**
-- Solution: Check your internet connection and API key validity
-- The default timeout is 30 seconds
+**"LLM API request timed out"**
+- Check your internet connection and API key validity
+- Default timeout is 30 seconds
 
-**4. Docker build fails**
-- Solution: Ensure Docker is running and you have sufficient disk space
+**Docker build fails**
+- Ensure Docker is running and you have sufficient disk space
 - Try: `docker system prune` to clean up space
 
-**5. Frontend can't connect to backend**
-- Solution: Verify both services are running
-- Check docker-compose logs: `docker-compose logs`
-
 ### Debugging
+```bash
+# Check application logs
+docker-compose logs backend
+docker-compose logs frontend
 
-1. **Check application logs**
-   ```bash
-   docker-compose logs backend
-   docker-compose logs frontend
-   ```
+# Verify services are running
+docker-compose ps
 
-2. **Verify services are running**
-   ```bash
-   docker-compose ps
-   ```
+# Test backend directly
+curl -X POST http://localhost:8000/triage \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Test feedback"}'
+```
 
-3. **Test backend directly**
-   ```bash
-   curl -X POST http://localhost:8000/triage \
-     -H "Content-Type: application/json" \
-     -d '{"text": "Test feedback"}'
-   ```
+## 📁 Project Structure
 
-## Performance Considerations
+```
+ai-feedback-triage/
+├── backend/                 # FastAPI backend
+│   ├── src/
+│   │   ├── api/            # API route handlers
+│   │   ├── models/         # Database models
+│   │   ├── services/       # Business logic (LLM, feedback)
+│   │   ├── database/       # Database connection and setup
+│   │   └── main.py         # FastAPI application entry point
+│   ├── tests/              # Backend test suite
+│   ├── Dockerfile          # Backend container configuration
+│   └── requirements.txt    # Python dependencies
+├── frontend/               # Next.js frontend
+│   ├── src/
+│   │   ├── components/     # React components
+│   │   ├── pages/          # Next.js pages
+│   │   ├── utils/          # Utility functions and API calls
+│   │   └── types/          # TypeScript type definitions
+│   ├── public/             # Static assets
+│   ├── Dockerfile          # Frontend container configuration
+│   └── package.json        # Node.js dependencies
+├── docker-compose.yml      # Multi-service orchestration
+├── .env.example            # Environment variables template
+└── README.md              # Project documentation
+```
 
-- **API Rate Limits**: The application handles OpenAI rate limits gracefully
-- **Timeouts**: 30-second timeout for LLM requests prevents hanging
-- **Input Validation**: 1000 character limit prevents excessive API costs
-- **Error Caching**: Failed requests don't retry immediately
-
-## Security
-
-- **Environment Variables**: Sensitive data is stored in environment variables
-- **Input Sanitization**: All user input is validated and sanitized
-- **CORS**: Configured for development and production environments
-- **No API Key Exposure**: API keys are never sent to the frontend
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Ensure all tests pass
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License.
+
+---
+
+**Built with ❤️ for intelligent feedback management**
