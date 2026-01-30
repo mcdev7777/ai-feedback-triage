@@ -10,7 +10,7 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ darkMode, toggleDarkMode, currentPage }) => {
-  const router = useRouter();
+  // const router = useRouter(); // Unused for now
 
   return (
     <nav className={`sticky top-0 z-50 backdrop-blur-md ${darkMode ? 'bg-gray-900/80 border-gray-700' : 'bg-white/80 border-white/50'} border-b transition-all duration-300`}>

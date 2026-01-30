@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle, XCircle, X } from 'lucide-react';
+import { CheckCircle, XCircle } from 'lucide-react';
 
 interface Toast {
   id: string;

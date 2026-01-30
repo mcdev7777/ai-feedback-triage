@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TriageResponse } from '@/types';
 import { triageFeedback } from '@/utils/api';
-import { Send, Eraser, Loader2, Sparkles, Brain, Zap } from 'lucide-react';
+import { Eraser, Loader2, Sparkles, Brain, Zap } from 'lucide-react';
 
 interface FeedbackFormProps {
   onResult: (result: TriageResponse | null) => void;
