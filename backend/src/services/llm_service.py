@@ -1,5 +1,6 @@
 import json
 import os
+import logging
 from typing import Dict, Any
 from openai import AsyncOpenAI
 import asyncio
@@ -9,9 +10,12 @@ class LLMService:
         self.api_key = os.getenv("LLM_API_KEY")
         self.model = os.getenv("LLM_MODEL", "o4-mini-2025-04-16")
         self.base_url = os.getenv("LLM_BASE_URL")
+        self.logger = logging.getLogger(__name__)
         
         if not self.api_key:
             raise ValueError("LLM_API_KEY environment variable is required")
+        
+        self.logger.info(f"LLM Service initialized with model: {self.model}")
         
         if self.base_url:
             self.client = AsyncOpenAI(
@@ -84,15 +88,27 @@ Response:"""
         prompt = self._create_prompt(feedback_text.strip())
         
         try:
-            response = await asyncio.wait_for(
-                self.client.chat.completions.create(
-                    model=self.model,
-                    messages=[{"role": "user", "content": prompt}],
-                    max_completion_tokens=100,
-                    temperature=0.3
-                ),
-                timeout=30.0
-            )
+            # Different models may require different parameters
+            if self.model.startswith("o1-") or self.model.startswith("o4-"):
+                # For o1/o4 models, use simplified parameters
+                response = await asyncio.wait_for(
+                    self.client.chat.completions.create(
+                        model=self.model,
+                        messages=[{"role": "user", "content": prompt}]
+                    ),
+                    timeout=30.0
+                )
+            else:
+                # For other models (GPT-3.5, GPT-4, etc.)
+                response = await asyncio.wait_for(
+                    self.client.chat.completions.create(
+                        model=self.model,
+                        messages=[{"role": "user", "content": prompt}],
+                        max_tokens=100,
+                        temperature=0.3
+                    ),
+                    timeout=30.0
+                )
             
             # Check if response has content
             if not response.choices or not response.choices[0].message.content:
@@ -132,11 +148,13 @@ Response:"""
                 raise ValueError(f"Invalid JSON response from LLM: {content}")
                 
         except asyncio.TimeoutError:
+            self.logger.error("LLM API request timed out")
             raise Exception("LLM API request timed out")
         except ValueError:
             # Re-raise ValueError exceptions (validation errors) as-is
             raise
         except Exception as e:
+            self.logger.error(f"LLM API error: {str(e)}")
             raise Exception(f"LLM API error: {str(e)}")
     
     def _extract_json_from_response(self, content: str) -> str:
