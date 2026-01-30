@@ -7,7 +7,7 @@ import asyncio
 class LLMService:
     def __init__(self):
         self.api_key = os.getenv("LLM_API_KEY")
-        self.model = os.getenv("LLM_MODEL", "o1-mini-2025-01-16")
+        self.model = os.getenv("LLM_MODEL", "o4-mini-2025-04-16")
         self.base_url = os.getenv("LLM_BASE_URL")
         
         if not self.api_key:

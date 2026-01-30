@@ -77,7 +77,7 @@ The system classifies feedback into these categories:
    Edit `.env` file with your API credentials:
    ```env
    LLM_API_KEY=your_openai_api_key_here
-   LLM_MODEL=o1-mini-2025-01-16
+   LLM_MODEL=o4-mini-2025-04-16
    # LLM_BASE_URL=  # Optional: for custom API endpoints
    # DATABASE_URL=  # Optional: PostgreSQL connection string
    ```
@@ -275,7 +275,7 @@ Returns daily feedback trends and category distribution.
 3. **Set environment variables**
    ```bash
    export LLM_API_KEY=your_api_key
-   export LLM_MODEL=o1-mini-2025-01-16
+   export LLM_MODEL=o4-mini-2025-04-16
    ```
 
 4. **Run the backend**
@@ -381,7 +381,7 @@ Returns daily feedback trends and category distribution.
 | Variable | Description | Default | Required |
 |----------|-------------|---------|----------|
 | LLM_API_KEY | API key for LLM provider | - | Yes |
-| LLM_MODEL | Model name (e.g., o1-mini-2025-01-16, gpt-4) | o1-mini-2025-01-16 | No |
+| LLM_MODEL | Model name (e.g., o4-mini-2025-04-16, gpt-4) | o4-mini-2025-04-16 | No |
 | LLM_BASE_URL | Custom API endpoint URL | - | No |
 | DATABASE_URL | Database connection string | sqlite+aiosqlite:///./feedback_triage.db | No |
 | SQL_DEBUG | Enable SQL query logging | false | No |
