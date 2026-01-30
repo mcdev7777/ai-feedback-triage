@@ -124,12 +124,12 @@ const Dashboard: React.FC = () => {
     setLoading(true);
     try {
       // Load dashboard stats
-      const statsResponse = await fetch(`${process.env.API_URL || 'http://localhost:8000'}/api/dashboard/stats?days_back=${timeRange}`);
+      const statsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/dashboard/stats?days_back=${timeRange}`);
       const statsData = await statsResponse.json();
       setStats(statsData);
 
       // Load feedback history
-      const feedbackResponse = await fetch(`${process.env.API_URL || 'http://localhost:8000'}/api/dashboard/feedback?limit=100`);
+      const feedbackResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/dashboard/feedback?limit=100`);
       const feedbackData = await feedbackResponse.json();
       setFeedbackHistory(feedbackData.feedback || []);
     } catch (error) {
@@ -146,7 +146,7 @@ const Dashboard: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.API_URL || 'http://localhost:8000'}/api/dashboard/search?q=${encodeURIComponent(searchTerm)}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/dashboard/search?q=${encodeURIComponent(searchTerm)}`);
       const data = await response.json();
       setFeedbackHistory(data.feedback || []);
     } catch (error) {
@@ -157,7 +157,7 @@ const Dashboard: React.FC = () => {
   const filterByCategory = async (category: string) => {
     setSelectedCategory(category);
     try {
-      const response = await fetch(`${process.env.API_URL || 'http://localhost:8000'}/api/dashboard/feedback?category=${encodeURIComponent(category)}&limit=100`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/dashboard/feedback?category=${encodeURIComponent(category)}&limit=100`);
       const data = await response.json();
       setFeedbackHistory(data.feedback || []);
     } catch (error) {
@@ -261,7 +261,7 @@ const Dashboard: React.FC = () => {
                   <Sparkles className="w-6 h-6 text-yellow-400 ml-2 animate-pulse" />
                 </div>
                 <p className={`text-lg ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                  Comprehensive insights from the last <span className="font-semibold text-blue-500">{timeRange} days</span>
+                  Insights from the last <span className="font-semibold text-blue-500">{timeRange} days</span>
                 </p>
               </div>
               
