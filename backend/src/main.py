@@ -19,9 +19,23 @@ app = FastAPI(
     version="2.0.0"
 )
 
+# CORS configuration for deployment
+allowed_origins = [
+    "http://localhost:3000",
+    "http://localhost:3001", 
+    "http://frontend:3000",
+    "https://*.vercel.app",
+    "https://ai-feedback-triage.vercel.app",
+    "https://ai-feedback-triage-*.vercel.app"
+]
+
+# In production, allow all origins for now (can be restricted later)
+if os.getenv("ENVIRONMENT") == "production":
+    allowed_origins = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://frontend:3000"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
