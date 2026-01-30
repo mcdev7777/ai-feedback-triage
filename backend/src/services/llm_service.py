@@ -88,7 +88,7 @@ Response:"""
                 self.client.chat.completions.create(
                     model=self.model,
                     messages=[{"role": "user", "content": prompt}],
-                    max_tokens=100,
+                    max_completion_tokens=100,
                     temperature=0.3
                 ),
                 timeout=30.0
