@@ -13,7 +13,7 @@ sys.path.insert(0, str(backend_src))
 os.environ["LLM_API_KEY"] = "test_key"
 os.environ["TESTING"] = "true"
 
-from services.llm_service import LLMService
+from src.services.llm_service import LLMService
 
 class TestLLMService:
     def setup_method(self):
@@ -34,7 +34,7 @@ class TestLLMService:
         assert "JSON" in prompt
     
     @pytest.mark.asyncio
-    @patch('services.llm_service.AsyncOpenAI')
+    @patch('src.services.llm_service.AsyncOpenAI')
     async def test_analyze_feedback_success(self, mock_openai):
         mock_response = MagicMock()
         mock_response.choices[0].message.content = '{"category": "Bug Report", "urgency_score": 4}'
@@ -52,7 +52,7 @@ class TestLLMService:
         assert result["urgency_score"] == 4
     
     @pytest.mark.asyncio
-    @patch('services.llm_service.AsyncOpenAI')
+    @patch('src.services.llm_service.AsyncOpenAI')
     async def test_analyze_feedback_invalid_json(self, mock_openai):
         mock_response = MagicMock()
         mock_response.choices[0].message.content = 'Invalid JSON'
@@ -68,7 +68,7 @@ class TestLLMService:
             await service.analyze_feedback("Test feedback")
     
     @pytest.mark.asyncio
-    @patch('services.llm_service.AsyncOpenAI')
+    @patch('src.services.llm_service.AsyncOpenAI')
     async def test_analyze_feedback_invalid_category(self, mock_openai):
         mock_response = MagicMock()
         mock_response.choices[0].message.content = '{"category": "Invalid Category", "urgency_score": 4}'
@@ -84,7 +84,7 @@ class TestLLMService:
             await service.analyze_feedback("Test feedback")
     
     @pytest.mark.asyncio
-    @patch('services.llm_service.AsyncOpenAI')
+    @patch('src.services.llm_service.AsyncOpenAI')
     async def test_analyze_feedback_invalid_urgency(self, mock_openai):
         mock_response = MagicMock()
         mock_response.choices[0].message.content = '{"category": "Bug Report", "urgency_score": 6}'

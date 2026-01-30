@@ -13,7 +13,8 @@ sys.path.insert(0, str(backend_src))
 os.environ["LLM_API_KEY"] = "test_key"
 os.environ["TESTING"] = "true"
 
-from main import app
+# Import app from the module
+from src.main import app
 
 client = TestClient(app)
 
@@ -28,7 +29,7 @@ class TestTriageEndpoint:
         assert response.status_code == 200
         assert response.json()["status"] == "healthy"
     
-    @patch('services.llm_service.LLMService.analyze_feedback')
+    @patch('src.api.triage.llm_service.analyze_feedback', new_callable=AsyncMock)
     def test_triage_success(self, mock_analyze):
         mock_analyze.return_value = {
             "category": "Bug Report",
@@ -56,7 +57,7 @@ class TestTriageEndpoint:
         response = client.post("/triage", json={})
         assert response.status_code == 422
     
-    @patch('services.llm_service.LLMService.analyze_feedback')
+    @patch('src.api.triage.llm_service.analyze_feedback', new_callable=AsyncMock)
     def test_triage_llm_error(self, mock_analyze):
         mock_analyze.side_effect = Exception("LLM API error")
         
@@ -67,7 +68,7 @@ class TestTriageEndpoint:
         assert data["error"] == "Internal Server Error"
         assert data["status_code"] == 500
     
-    @patch('services.llm_service.LLMService.analyze_feedback')
+    @patch('src.api.triage.llm_service.analyze_feedback', new_callable=AsyncMock)
     def test_triage_validation_error(self, mock_analyze):
         mock_analyze.side_effect = ValueError("Invalid category")
         

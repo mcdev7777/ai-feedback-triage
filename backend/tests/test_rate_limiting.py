@@ -1,7 +1,7 @@
 import pytest
 import pytest_asyncio
 from fastapi.testclient import TestClient
-from unittest.mock import patch
+from unittest.mock import patch, AsyncMock
 import os
 import sys
 from pathlib import Path
@@ -13,8 +13,8 @@ sys.path.insert(0, str(backend_src))
 os.environ["LLM_API_KEY"] = "test_key"
 # Don't set TESTING=true for rate limiting tests
 
-from main import app
-from api.triage import clear_rate_limits
+from src.main import app
+from src.api.triage import clear_rate_limits
 
 client = TestClient(app)
 
@@ -32,14 +32,14 @@ class TestRateLimiting:
     def test_rate_limit_functionality(self):
         """Test that rate limiting works correctly."""
         # Test by temporarily setting environment variables and importing fresh module
-        import api.triage as triage_module
+        import src.api.triage as triage_module
         
         # Temporarily override the rate limit
         original_max = triage_module.RATE_LIMIT_MAX_REQUESTS
         triage_module.RATE_LIMIT_MAX_REQUESTS = 2
         
         try:
-            with patch('services.llm_service.LLMService.analyze_feedback') as mock_analyze:
+            with patch('src.api.triage.llm_service.analyze_feedback', new_callable=AsyncMock) as mock_analyze:
                 mock_analyze.return_value = {
                     "category": "General Inquiry",
                     "urgency_score": 1
@@ -69,7 +69,7 @@ class TestRateLimiting:
     def test_rate_limit_different_ips(self):
         """Test that rate limiting is per-IP."""
         # This test verifies the concept - in practice, TestClient uses the same IP
-        with patch('services.llm_service.LLMService.analyze_feedback') as mock_analyze:
+        with patch('src.api.triage.llm_service.analyze_feedback', new_callable=AsyncMock) as mock_analyze:
             mock_analyze.return_value = {
                 "category": "General Inquiry", 
                 "urgency_score": 1

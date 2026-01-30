@@ -51,12 +51,14 @@ jobs:
         export LLM_API_KEY="test-key"
         export LLM_MODEL="o4-mini-2025-04-16"
         export DATABASE_URL="sqlite+aiosqlite:///./test.db"
-        export PYTHONPATH="${PWD}/src:${PYTHONPATH}"
+        export TESTING="true"
+        export PYTHONPATH="${PWD}:${PYTHONPATH}"
         python -m pytest tests/ -v --tb=short
       env:
         LLM_API_KEY: test-key
         LLM_MODEL: o4-mini-2025-04-16
         DATABASE_URL: sqlite+aiosqlite:///./test.db
+        TESTING: true
 
     - name: Run backend tests with coverage
       run: |
@@ -65,12 +67,14 @@ jobs:
         export LLM_API_KEY="test-key"
         export LLM_MODEL="o4-mini-2025-04-16"
         export DATABASE_URL="sqlite+aiosqlite:///./test.db"
-        export PYTHONPATH="${PWD}/src:${PYTHONPATH}"
+        export TESTING="true"
+        export PYTHONPATH="${PWD}:${PYTHONPATH}"
         python -m pytest tests/ --cov=src --cov-report=xml --cov-report=html
       env:
         LLM_API_KEY: test-key
         LLM_MODEL: o4-mini-2025-04-16
         DATABASE_URL: sqlite+aiosqlite:///./test.db
+        TESTING: true
 
     - name: Upload coverage reports
       uses: codecov/codecov-action@v3

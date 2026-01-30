@@ -13,8 +13,8 @@ sys.path.insert(0, str(backend_src))
 os.environ["LLM_API_KEY"] = "test_key"
 os.environ["TESTING"] = "true"
 
-from main import app
-from services.llm_service import LLMService
+from src.main import app
+from src.services.llm_service import LLMService
 
 client = TestClient(app)
 
@@ -30,7 +30,7 @@ class TestEdgeCases:
     
     def test_excessive_whitespace_normalization(self):
         """Test that excessive whitespace is normalized."""
-        with patch('src.services.llm_service.LLMService.analyze_feedback') as mock_analyze:
+        with patch('src.api.triage.llm_service.analyze_feedback', new_callable=AsyncMock) as mock_analyze:
             mock_analyze.return_value = {
                 "category": "General Inquiry",
                 "urgency_score": 2
@@ -45,7 +45,7 @@ class TestEdgeCases:
     
     def test_special_characters_handling(self):
         """Test feedback with special characters."""
-        with patch('src.services.llm_service.LLMService.analyze_feedback') as mock_analyze:
+        with patch('src.api.triage.llm_service.analyze_feedback', new_callable=AsyncMock) as mock_analyze:
             mock_analyze.return_value = {
                 "category": "Bug Report",
                 "urgency_score": 3
@@ -70,7 +70,7 @@ class TestEdgeCases:
         assert data["error"] == "Internal Server Error"
         assert "try again later" in data["message"]
     
-    @patch('services.llm_service.LLMService.analyze_feedback')
+    @patch('src.api.triage.llm_service.analyze_feedback', new_callable=AsyncMock)
     def test_malformed_llm_response(self, mock_analyze):
         """Test handling of malformed LLM responses."""
         mock_analyze.side_effect = ValueError("Invalid JSON response from LLM: malformed data")
