@@ -1,12 +1,19 @@
 import pytest
+import pytest_asyncio
 from fastapi.testclient import TestClient
 from unittest.mock import AsyncMock, patch
 import os
+import sys
+from pathlib import Path
+
+# Add backend/src to path for imports
+backend_src = Path(__file__).parent.parent / "src"
+sys.path.insert(0, str(backend_src))
 
 os.environ["LLM_API_KEY"] = "test_key"
 os.environ["TESTING"] = "true"
 
-from src.main import app
+from main import app
 
 client = TestClient(app)
 
@@ -21,7 +28,7 @@ class TestTriageEndpoint:
         assert response.status_code == 200
         assert response.json()["status"] == "healthy"
     
-    @patch('src.services.llm_service.LLMService.analyze_feedback')
+    @patch('services.llm_service.LLMService.analyze_feedback')
     def test_triage_success(self, mock_analyze):
         mock_analyze.return_value = {
             "category": "Bug Report",
@@ -49,7 +56,7 @@ class TestTriageEndpoint:
         response = client.post("/triage", json={})
         assert response.status_code == 422
     
-    @patch('src.services.llm_service.LLMService.analyze_feedback')
+    @patch('services.llm_service.LLMService.analyze_feedback')
     def test_triage_llm_error(self, mock_analyze):
         mock_analyze.side_effect = Exception("LLM API error")
         
@@ -60,7 +67,7 @@ class TestTriageEndpoint:
         assert data["error"] == "Internal Server Error"
         assert data["status_code"] == 500
     
-    @patch('src.services.llm_service.LLMService.analyze_feedback')
+    @patch('services.llm_service.LLMService.analyze_feedback')
     def test_triage_validation_error(self, mock_analyze):
         mock_analyze.side_effect = ValueError("Invalid category")
         

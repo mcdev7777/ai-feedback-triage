@@ -1,13 +1,20 @@
 import pytest
+import pytest_asyncio
 from fastapi.testclient import TestClient
 from unittest.mock import AsyncMock, patch, MagicMock
 import os
+import sys
+from pathlib import Path
+
+# Add backend/src to path for imports
+backend_src = Path(__file__).parent.parent / "src"
+sys.path.insert(0, str(backend_src))
 
 os.environ["LLM_API_KEY"] = "test_key"
 os.environ["TESTING"] = "true"
 
-from src.main import app
-from src.services.llm_service import LLMService
+from main import app
+from services.llm_service import LLMService
 
 client = TestClient(app)
 
@@ -51,7 +58,7 @@ class TestEdgeCases:
             data = response.json()
             assert data["feedback_text"] == special_text
     
-    @patch('src.services.llm_service.LLMService.analyze_feedback')
+    @patch('services.llm_service.LLMService.analyze_feedback')
     def test_llm_timeout_handling(self, mock_analyze):
         """Test handling of LLM API timeouts."""
         mock_analyze.side_effect = Exception("LLM API request timed out")
@@ -63,7 +70,7 @@ class TestEdgeCases:
         assert data["error"] == "Internal Server Error"
         assert "try again later" in data["message"]
     
-    @patch('src.services.llm_service.LLMService.analyze_feedback')
+    @patch('services.llm_service.LLMService.analyze_feedback')
     def test_malformed_llm_response(self, mock_analyze):
         """Test handling of malformed LLM responses."""
         mock_analyze.side_effect = ValueError("Invalid JSON response from LLM: malformed data")
@@ -102,7 +109,7 @@ class TestLLMServiceEdgeCases:
             await self.llm_service.analyze_feedback(large_text)
     
     @pytest.mark.asyncio
-    @patch('src.services.llm_service.AsyncOpenAI')
+    @patch('services.llm_service.AsyncOpenAI')
     async def test_empty_llm_response(self, mock_openai):
         """Test handling of empty LLM response."""
         mock_response = MagicMock()
@@ -119,7 +126,7 @@ class TestLLMServiceEdgeCases:
             await service.analyze_feedback("Test feedback")
     
     @pytest.mark.asyncio
-    @patch('src.services.llm_service.AsyncOpenAI')
+    @patch('services.llm_service.AsyncOpenAI')
     async def test_missing_category_field(self, mock_openai):
         """Test handling of LLM response missing category field."""
         mock_response = MagicMock()
@@ -136,7 +143,7 @@ class TestLLMServiceEdgeCases:
             await service.analyze_feedback("Test feedback")
     
     @pytest.mark.asyncio
-    @patch('src.services.llm_service.AsyncOpenAI')
+    @patch('services.llm_service.AsyncOpenAI')
     async def test_missing_urgency_field(self, mock_openai):
         """Test handling of LLM response missing urgency field."""
         mock_response = MagicMock()
@@ -153,7 +160,7 @@ class TestLLMServiceEdgeCases:
             await service.analyze_feedback("Test feedback")
     
     @pytest.mark.asyncio
-    @patch('src.services.llm_service.AsyncOpenAI')
+    @patch('services.llm_service.AsyncOpenAI')
     async def test_non_dict_response(self, mock_openai):
         """Test handling of non-dictionary LLM response."""
         mock_response = MagicMock()
@@ -170,7 +177,7 @@ class TestLLMServiceEdgeCases:
             await service.analyze_feedback("Test feedback")
     
     @pytest.mark.asyncio
-    @patch('src.services.llm_service.AsyncOpenAI')
+    @patch('services.llm_service.AsyncOpenAI')
     async def test_json_extraction_with_extra_text(self, mock_openai):
         """Test JSON extraction when LLM includes extra text."""
         mock_response = MagicMock()
@@ -188,7 +195,7 @@ class TestLLMServiceEdgeCases:
         assert result["urgency_score"] == 4
     
     @pytest.mark.asyncio
-    @patch('src.services.llm_service.AsyncOpenAI')
+    @patch('services.llm_service.AsyncOpenAI')
     async def test_string_urgency_score(self, mock_openai):
         """Test handling of string urgency score."""
         mock_response = MagicMock()

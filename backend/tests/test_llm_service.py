@@ -1,12 +1,19 @@
 import pytest
+import pytest_asyncio
 from unittest.mock import AsyncMock, patch, MagicMock
 import json
 import os
+import sys
+from pathlib import Path
+
+# Add backend/src to path for imports
+backend_src = Path(__file__).parent.parent / "src"
+sys.path.insert(0, str(backend_src))
 
 os.environ["LLM_API_KEY"] = "test_key"
 os.environ["TESTING"] = "true"
 
-from src.services.llm_service import LLMService
+from services.llm_service import LLMService
 
 class TestLLMService:
     def setup_method(self):
@@ -27,7 +34,7 @@ class TestLLMService:
         assert "JSON" in prompt
     
     @pytest.mark.asyncio
-    @patch('src.services.llm_service.AsyncOpenAI')
+    @patch('services.llm_service.AsyncOpenAI')
     async def test_analyze_feedback_success(self, mock_openai):
         mock_response = MagicMock()
         mock_response.choices[0].message.content = '{"category": "Bug Report", "urgency_score": 4}'
@@ -45,7 +52,7 @@ class TestLLMService:
         assert result["urgency_score"] == 4
     
     @pytest.mark.asyncio
-    @patch('src.services.llm_service.AsyncOpenAI')
+    @patch('services.llm_service.AsyncOpenAI')
     async def test_analyze_feedback_invalid_json(self, mock_openai):
         mock_response = MagicMock()
         mock_response.choices[0].message.content = 'Invalid JSON'
@@ -61,7 +68,7 @@ class TestLLMService:
             await service.analyze_feedback("Test feedback")
     
     @pytest.mark.asyncio
-    @patch('src.services.llm_service.AsyncOpenAI')
+    @patch('services.llm_service.AsyncOpenAI')
     async def test_analyze_feedback_invalid_category(self, mock_openai):
         mock_response = MagicMock()
         mock_response.choices[0].message.content = '{"category": "Invalid Category", "urgency_score": 4}'
@@ -77,7 +84,7 @@ class TestLLMService:
             await service.analyze_feedback("Test feedback")
     
     @pytest.mark.asyncio
-    @patch('src.services.llm_service.AsyncOpenAI')
+    @patch('services.llm_service.AsyncOpenAI')
     async def test_analyze_feedback_invalid_urgency(self, mock_openai):
         mock_response = MagicMock()
         mock_response.choices[0].message.content = '{"category": "Bug Report", "urgency_score": 6}'
