@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "pages/api/*.js": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "${NEXT_PUBLIC_API_URL}/:path*"
+    }
+  ]
+}
